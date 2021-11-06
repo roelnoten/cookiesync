@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<style>
+    body {
+        background: radial-gradient(129.7% 129.7% at 38.0% -17.6%, rgba(98, 132, 248, 0.2) 0%, rgba(82, 118, 235, 0.2) 23%, rgba(82, 118, 235, 0.2) 57%, rgba(210, 161, 197, 1) 100%);
+        padding: 10px;
+        color: white;
+        width: 400px;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif;
+        text-align: justify;
+        color: black;
+        font-size: 14px;
+    }
+
+    img {
+        border: none;
+        width: 96px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    textarea {
+        width: 100%;
+    }
+</style>
+
+<img src="icon96.png">
+<p>
+    This addon copies cookies to localhost.
+</p>
+<p>
+    All incoming cookies with name matching the regexes below are copied to the http://localhost domain.
+</p>
+
+<!--<div class="content">-->
+<!--    <a href="https://addons.mozilla.org/fr/firefox/addon/set-cookie-no-secure-httponly/" class="btn left">-->
+<!--        <span  class="right title"><span class="arrow-right"></span>Rate & About</span>-->
+<!--        <span class="left icon">&nbsp;&nbsp;⭐&nbsp;</span>-->
+<!--    </a>-->
+<!--</div>-->
+<div class="content">
+    <span class="label">Cookie name regexp (1 per line) :</span>
+    <p class="label" id="warning" style="background-color: red"></p>
+    <textarea class="regextextarea" rows="4"></textarea>
+</div>
+
+<p>
+    <i>Source: <a href="https://github.com/roelnoten/cookiesync">git</a></i>
+</p>
+<script type="text/javascript" src="popup.js"></script>
+</script>
+
+</body>
+</html>
