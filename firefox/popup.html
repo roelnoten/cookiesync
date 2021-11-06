@@ -7,15 +7,16 @@
 <style>
     body {
         background: radial-gradient(129.7% 129.7% at 38.0% -17.6%, rgba(98, 132, 248, 0.2) 0%, rgba(82, 118, 235, 0.2) 23%, rgba(82, 118, 235, 0.2) 57%, rgba(210, 161, 197, 1) 100%);
-        padding: 10px;
-        color: white;
-        width: 400px;
+        padding: 5px 10px 0px 5px;
+        width: 275px;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif;
-        text-align: justify;
         color: black;
         font-size: 14px;
     }
 
+    p {
+        text-align: justify;
+    }
     img {
         border: none;
         width: 96px;
@@ -43,11 +44,10 @@
 <!--        <span class="left icon">&nbsp;&nbsp;⭐&nbsp;</span>-->
 <!--    </a>-->
 <!--</div>-->
-<div class="content">
-    <span class="label">Cookie name regex (1 per line) :</span>
-    <p class="label" id="warning" style="background-color: red"></p>
-    <textarea class="regextextarea" rows="4"></textarea>
-</div>
+
+Cookie name regex (1 per line):
+<textarea class="regextextarea" rows="4"></textarea>
+<p class="label" id="warning" style="background-color: red"></p>
 
 <p>
     <i>Source: <a href="https://github.com/roelnoten/cookiesync">git</a></i>

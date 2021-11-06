@@ -9,6 +9,7 @@ It's primary here for developers that have code running on their localhost which
 But when code is running on localhost (during development), those cookies are not accessible in the browser. This add on makes those cookies available on localhost, so available to the developer's local code.
 
 Screenshot:
+
 ![](screenshot.png)
 
 # Compatibility
