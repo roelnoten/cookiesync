@@ -1,4 +1,4 @@
-![alt text](icon96.png)
+![alt text](firefox/icon96.png)
 # CookieSync
 
 This is a Firefox addon which copies cookies to localhost.
