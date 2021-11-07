@@ -13,7 +13,7 @@ Screenshot:
 ![](firefox/screenshot.png)
 *Firefox*
 
-![](screenshot-chrome.png)
+![](chrome/screenshot.png)
 *Chrome*
 
 # Compatibility
@@ -34,6 +34,7 @@ To get a view on these: Menu > Tools > Browser Tools > Browser Console.  Make su
 
 ### Packaging
 Repackage the addon in firefox folder via :
+
 zip -r -FS CookieSync.zip background.js icon* manifest.json popup*
 
 ## Chrome
@@ -44,4 +45,5 @@ Click the reload button when making changes.
 
 ### Packaging
 Repackage the extension in chrome folder via :
+
 zip -r -FS CookieSync.zip background.js icon* manifest.json popup*
