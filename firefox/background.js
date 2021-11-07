@@ -1,25 +1,38 @@
-var defaultRgx = ["sessionid.*"].join('\n')
-var regexpesarray = [];
+var defaultHost = ".*\\.mycompany\\.com";
+var defaultNames = ["sessionid.*"].join('\n')
+
+var host;
+var namesArray = [];
 
 function updateRegexpes(save) {
-    browser.storage.local.get("regstr", function (res) {
-        var regstr = (res.regstr || defaultRgx);
+    browser.storage.local.get("regexNames", function (res) {
+        var regexNames = (res.regexNames || defaultNames);
+        namesArray = regexNames.split("\n")
+        register();
+    });
 
-        regexpesarray = regstr.split("\n")
-        console.log("updateRegexpes : " + regexpesarray)
-
-        browser.webRequest.onHeadersReceived.removeListener(onHeader)
-        browser.webRequest.onHeadersReceived.addListener(onHeader,
-            {urls: ["http://*/*", "https://*/*"]},
-            ["blocking", "responseHeaders"]
-        );
+    browser.storage.local.get("regexHost", function (res) {
+        host = (res.regexHost || defaultHost);
+        register();
     });
 }
 
+function register() {
+    browser.webRequest.onHeadersReceived.removeListener(onHeader)
+    browser.webRequest.onHeadersReceived.addListener(onHeader,
+        {urls: ["http://*/*", "https://*/*"]},
+        ["blocking", "responseHeaders"]
+    );
+}
+
 function onHeader(e) {
-    for (var header of e.responseHeaders) {
-        if (header.name.toLowerCase() === "set-cookie") {
-            copyCookies(header.value)
+    url = new URL(e.url);
+    urlhostname = url.hostname;
+    if (doesCookieHostMatch(urlhostname)) {
+        for (var header of e.responseHeaders) {
+            if (header.name.toLowerCase() === "set-cookie") {
+                copyCookies(header.value)
+            }
         }
     }
     return {responseHeaders: e.responseHeaders};
@@ -44,13 +57,18 @@ function copyCookies(headervalue) {
 }
 
 function doesCookieNameMatch(name) {
-    for (var regex of regexpesarray) {
+    for (var regex of namesArray) {
         if (name.match(regex)) {
             return true;
         }
     }
     return false;
 }
+
+function doesCookieHostMatch(cookiehost) {
+    return cookiehost.match(host);
+}
+
 updateRegexpes();
 
 var portFromCS;
@@ -58,8 +76,13 @@ var portFromCS;
 function connected(p) {
     portFromCS = p;
     portFromCS.onMessage.addListener(function (m) {
-        if (m.updateRegexpes) {
-            browser.storage.local.set({"regstr": m.updateRegexpes}, function (res) {
+        if (m.updateHost) {
+            browser.storage.local.set({"regexHost": m.updateHost}, function (res) {
+                updateRegexpes();
+            });
+        }
+        if (m.updateRegexNames) {
+            browser.storage.local.set({"regexNames": m.updateRegexNames}, function (res) {
                 updateRegexpes();
             });
         }

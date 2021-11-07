@@ -1,24 +1,38 @@
-var defaultRgx = ["sessionid.*"].join('\n')
-var regexpesarray = [];
+var defaultHost = ".*\\.mycompany\\.com";
+var defaultNames = ["sessionid.*"].join('\n')
+
+var host;
+var namesArray = [];
 
 function updateRegexpes(save) {
-    chrome.storage.local.get("regstr", function (res) {
-        var regstr = (res.regstr || defaultRgx);
+    chrome.storage.local.get("regexNames", function (res) {
+        var regexNames = (res.regexNames || defaultNames);
+        namesArray = regexNames.split("\n")
+        register();
+    });
 
-        regexpesarray = regstr.split("\n")
-
-        chrome.webRequest.onHeadersReceived.removeListener(onHeader)
-        chrome.webRequest.onHeadersReceived.addListener(onHeader,
-            {urls: ["http://*/*", "https://*/*"]},
-            ["blocking", "responseHeaders", "extraHeaders"]
-        );
+    chrome.storage.local.get("regexHost", function (res) {
+        host = (res.regexHost || defaultHost);
+        register();
     });
 }
 
+function register() {
+    chrome.webRequest.onHeadersReceived.removeListener(onHeader)
+    chrome.webRequest.onHeadersReceived.addListener(onHeader,
+        {urls: ["http://*/*", "https://*/*"]},
+        ["blocking", "responseHeaders", "extraHeaders"]
+    );
+}
+
 function onHeader(e) {
-    for (var header of e.responseHeaders) {
-        if (header.name.toLowerCase() === "set-cookie") {
-            copyCookies(header.value)
+    url = new URL(e.url);
+    urlhostname = url.hostname;
+    if (doesCookieHostMatch(urlhostname)) {
+        for (var header of e.responseHeaders) {
+            if (header.name.toLowerCase() === "set-cookie") {
+                copyCookies(header.value)
+            }
         }
     }
     return {responseHeaders: e.responseHeaders};
@@ -43,13 +57,18 @@ function copyCookies(headervalue) {
 }
 
 function doesCookieNameMatch(name) {
-    for (var regex of regexpesarray) {
+    for (var regex of namesArray) {
         if (name.match(regex)) {
             return true;
         }
     }
     return false;
 }
+
+function doesCookieHostMatch(cookiehost) {
+    return cookiehost.match(host);
+}
+
 updateRegexpes();
 
 var portFromCS;
@@ -57,8 +76,13 @@ var portFromCS;
 function connected(p) {
     portFromCS = p;
     portFromCS.onMessage.addListener(function (m) {
-        if (m.updateRegexpes) {
-            chrome.storage.local.set({"regstr": m.updateRegexpes}, function (res) {
+        if (m.updateHost) {
+            chrome.storage.local.set({"regexHost": m.updateHost}, function (res) {
+                updateRegexpes();
+            });
+        }
+        if (m.updateRegexNames) {
+            chrome.storage.local.set({"regexNames": m.updateRegexNames}, function (res) {
                 updateRegexpes();
             });
         }
