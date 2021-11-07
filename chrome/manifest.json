@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "CookieSync: syncs cookie to localhost",
+  "name": "CookieSync: syncs cookies to localhost",
   "version": "1.1",
   "description": "Copies cookies to localhost",
   "homepage_url": "https://github.com/roelnoten/cookiesync",
@@ -10,7 +10,7 @@
     "128": "icon128.png"
   },
   "permissions": [
-    "<all_urls>", "activeTab", "webRequest", "declarativeNetRequest","webRequestBlocking","storage", "cookies"]
+    "<all_urls>", "webRequest","webRequestBlocking","storage", "cookies"]
   ,
   "browser_action": {
     "default_icon": "icon38.png",
