@@ -18,6 +18,7 @@ Screenshot:
 
 # Compatibility
 - Firefox
+- Chrome
 
 # Plugin development notes
 
