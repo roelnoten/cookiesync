@@ -20,6 +20,10 @@ Screenshot:
 - Firefox
 - Chrome
 
+# Releases
+- 1.4 Initial uploaded version
+- 2.0 Upgrade to manifest v3 and refactored background.js into a service_worker.js.  Thank you https://github.com/erik-bessegato.
+- 
 # Plugin development notes
 
 This is relevant when changes are needed to the plugin.
@@ -46,4 +50,4 @@ Click the reload button when making changes.
 ### Packaging
 Repackage the extension in chrome folder via :
 
-zip -r -FS CookieSync.zip background.js icon* manifest.json popup*
+zip -r -FS CookieSync.zip service_worker.js icon* manifest.json popup*
