@@ -23,7 +23,8 @@ Screenshot:
 # Releases
 - 1.4 Initial uploaded version
 - 2.0 Upgrade to manifest v3 and refactored background.js into a service_worker.js.  Thank you https://github.com/erik-bessegato.
-- 
+- 2.1 Removing Chrome "declarativeNetRequest" and "declarativeNetRequestFeedback" permissions 
+
 # Plugin development notes
 
 This is relevant when changes are needed to the plugin.
